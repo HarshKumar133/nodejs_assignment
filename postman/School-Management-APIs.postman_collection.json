@@ -94,7 +94,43 @@
         },
         "description": "Returns 400 for invalid payload."
       },
-      "response": []
+      "response": [
+        {
+          "name": "400 Bad Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"address\": \"\",\n  \"latitude\": 123,\n  \"longitude\": \"bad\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/addSchool",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "addSchool"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed.\",\n  \"errors\": [\n    {\n      \"field\": \"name\",\n      \"message\": \"name is required and must be a non-empty string.\"\n    },\n    {\n      \"field\": \"address\",\n      \"message\": \"address is required and must be a non-empty string.\"\n    },\n    {\n      \"field\": \"latitude\",\n      \"message\": \"latitude must be between -90 and 90.\"\n    },\n    {\n      \"field\": \"longitude\",\n      \"message\": \"longitude must be a valid number.\"\n    }\n  ]\n}"
+        }
+      ]
     },
     {
       "name": "Add School - Duplicate",
@@ -121,7 +157,43 @@
         },
         "description": "Returns 409 for duplicate school (same name + address)."
       },
-      "response": []
+      "response": [
+        {
+          "name": "409 Conflict",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Greenwood High\",\n  \"address\": \"123 Main Street, Bengaluru\",\n  \"latitude\": 12.9716,\n  \"longitude\": 77.5946\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/addSchool",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "addSchool"
+              ]
+            }
+          },
+          "status": "Conflict",
+          "code": 409,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"School with the same name and address already exists.\",\n  \"errors\": [\n    {\n      \"field\": \"name,address\",\n      \"message\": \"Duplicate school entry.\"\n    }\n  ]\n}"
+        }
+      ]
     },
     {
       "name": "List Schools - Success",
@@ -214,7 +286,44 @@
         },
         "description": "Returns 400 for invalid coordinates."
       },
-      "response": []
+      "response": [
+        {
+          "name": "400 Bad Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/listSchools?latitude=&longitude=bad",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "listSchools"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": ""
+                },
+                {
+                  "key": "longitude",
+                  "value": "bad"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed.\",\n  \"errors\": [\n    {\n      \"field\": \"latitude\",\n      \"message\": \"latitude must be a valid number.\"\n    },\n    {\n      \"field\": \"longitude\",\n      \"message\": \"longitude must be a valid number.\"\n    }\n  ]\n}"
+        }
+      ]
     }
   ],
   "variable": [
